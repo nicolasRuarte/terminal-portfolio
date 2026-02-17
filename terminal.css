@@ -1,0 +1,57 @@
+:root {
+    --cmd-line-width: 50%;
+}
+
+#interaction-container {
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#interaction-container > div {
+    width: var(--cmd-line-width);
+    color: white;
+}
+
+#help-dialog {
+    color: var(--info-text-color);
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+.cmd-line {
+    border: 2px solid white;
+    color: white;
+    font-size: 3rem;
+
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.cmd-line > div {
+    color: inherit;
+}
+
+.editable-area {
+    width: 100%;
+    margin: 1rem;
+    caret-color: white;
+}
+
+.editable-area:focus {
+    outline: none;
+}
+
+/* CSS "funcional" que uso en conjunto con Javascript */
+.active {
+}
+
+.inactive {
+}
+
+.response {
+    color: white;
+}
