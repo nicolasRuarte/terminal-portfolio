@@ -22,7 +22,6 @@
 }
 
 .cmd-line {
-    border: 2px solid white;
     color: white;
     font-size: 3rem;
 
@@ -54,4 +53,6 @@
 
 .response {
     color: white;
+    font-size: 2rem;
+    padding: 3rem 0;
 }
