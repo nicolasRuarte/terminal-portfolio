@@ -144,6 +144,7 @@ function createCmdLine() {
     const interactionContainer = document.querySelector("#interaction-container");
     interactionContainer.appendChild(cmdLine);
 
+    editableArea.focus();
     cmdLine.addEventListener("keydown", processEditableAreaInput);
 
     return cmdLine
