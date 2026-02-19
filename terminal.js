@@ -19,7 +19,7 @@ const responder = {
             - help: imprime la lista de comandos disponibles
             - projects: imprime la lista de mis proyectos
             - tech: imprime una lista con las tecnologías que manejo
-            - socials: imprime una lista con mis redes sociales de contacto
+            - whoami: imprime una lista con mis redes sociales de contacto
         `;
 
         const divContainer = document.createElement("div");
@@ -58,15 +58,15 @@ const responder = {
         interactionContainer.appendChild(divContainer);
     },
 
-    socials: () => {
-        const socials = document.createElement("pre");
-        socials.classList.add("response");
-        socials.innerHTML = `Mis redes:
+    whoami: () => {
+        const socialNetworksList = document.createElement("pre");
+        socialNetworksList.classList.add("response");
+        socialNetworksList.innerHTML = `Mis redes:
         -  <a href="mailto:miqueasnruarte@protonmail.com">Email</a>
         - <a href="https://x.com/NPCyBoludo">Twitter</a>`
 
         const divContainer = document.createElement("div");
-        divContainer.appendChild(socials);
+        divContainer.appendChild(socialNetworksList);
 
         const interactionContainer = document.querySelector("#interaction-container");
         interactionContainer.appendChild(divContainer);
@@ -112,9 +112,9 @@ function processEditableAreaInput(event) {
                 createCmdLine();
                 break;
 
-            case "socials":
+            case "whoami":
                 disableCurrentEditableArea(editableArea);
-                responder.socials();
+                responder.whoami();
                 createCmdLine();
                 break;
         
