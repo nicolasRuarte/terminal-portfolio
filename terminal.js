@@ -82,6 +82,11 @@ const responder = {
 
         const interactionContainer = document.querySelector("#interaction-container");
         interactionContainer.appendChild(divContainer);
+    },
+
+    clear: () => {
+        const interactionContainer = document.querySelector("#interaction-container");
+        interactionContainer.innerHTML = "";
     }
 
 }
@@ -115,6 +120,11 @@ function processEditableAreaInput(event) {
             case "whoami":
                 disableCurrentEditableArea(editableArea);
                 responder.whoami();
+                createCmdLine();
+                break;
+
+            case "clear":
+                responder.clear();
                 createCmdLine();
                 break;
         
