@@ -38,6 +38,7 @@
     width: 100%;
     margin: 1rem;
     caret-color: white;
+    caret-shape: block;
 }
 
 .editable-area:focus {
@@ -45,12 +46,6 @@
 }
 
 /* CSS "funcional" que uso en conjunto con Javascript */
-.active {
-}
-
-.inactive {
-}
-
 .response {
     color: white;
     font-size: 2rem;
