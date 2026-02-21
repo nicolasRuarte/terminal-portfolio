@@ -17,7 +17,7 @@ const responder = {
         helpMessage.classList.add("response");
         helpMessage.textContent = `Lista de comandos disponibles:
             - help: imprime la lista de comandos disponibles
-            - projects: imprime la lista de mis proyectos
+            - ls: imprime una lista con los proyectos en los que he trabajado
             - tech: imprime una lista con las tecnologías que manejo
             - whoami: imprime una lista con mis redes sociales de contacto
         `;
@@ -29,7 +29,7 @@ const responder = {
         interactionContainer.appendChild(divContainer);
     },
 
-    projects: () => {
+    ls: () => {
         const projectList = document.createElement("pre");
         projectList.classList.add("response");
         projectList.innerHTML = `Mis proyectos:
@@ -105,9 +105,9 @@ function processEditableAreaInput(event) {
                 createCmdLine();
                 break;
 
-            case "projects":
+            case "ls":
                 disableCurrentEditableArea(editableArea);
-                responder.projects();
+                responder.ls();
                 createCmdLine();
                 break;
 
