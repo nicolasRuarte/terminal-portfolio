@@ -7,16 +7,20 @@ const numberOfParticles = 300;
 
 class Alien {
     constructor(xPos, yPos) {
+        this.size = 125;
         this.xPos = xPos;
         this.initialXPos = xPos;
         this.initialYPos = yPos;
         this.yPos = yPos;
-        this.weight = 1;
+        this.velocity = 5;
         this.maxDistance = 200;
         this.directionX = 1;
 
         this.spriteIdle = new Image();
         this.spriteIdle.src = "./alien-idle.png";
+        this.spriteMoving = new Image();
+        this.spriteMoving.src = "./alien-moving.png";
+        this.currentSprite = this.spriteIdle;
 
         this.states = Object.freeze({
             GOING_DOWN: 1,
@@ -31,7 +35,7 @@ class Alien {
     update() {
         switch (this.currentState) {
             case this.states.GOING_DOWN:
-                this.yPos += this.weight;
+                this.yPos += this.velocity;
 
                 if (this.yPos > this.initialYPos + this.maxDistance) {
                     this.initialYPos = this.yPos;
@@ -40,7 +44,7 @@ class Alien {
                 break;
 
             case this.states.GOING_RIGHT:
-                this.xPos += this.weight;
+                this.xPos += this.velocity;
 
                 if (this.xPos > this.initialXPos + this.maxDistance) {
                     this.initialXPos = this.xPos;
@@ -49,7 +53,7 @@ class Alien {
                 break;
                 
             case this.states.GOING_DOWN2:
-                this.yPos += this.weight;
+                this.yPos += this.velocity;
 
                 if (this.yPos > this.initialYPos + this.maxDistance) {
                     this.initialYPos = this.yPos;
@@ -58,7 +62,7 @@ class Alien {
                 break;
 
             case this.states.GOING_LEFT:
-                this.xPos -= this.weight;
+                this.xPos -= this.velocity;
 
                 if (this.xPos < this.initialXPos - this.maxDistance) {
                     this.initialXPos = this.xPos;
@@ -66,10 +70,24 @@ class Alien {
                 }
                 break;
         }
+
+        if (this.yPos > canvas.height) {
+            this.yPos = 0 - 20;
+            this.initialYPos = this.yPos;
+            this.xPos = Math.random() * (canvas.width - 100) + 100;
+            this.initialXPos = this.xPos;
+        }
     }
 
     draw() {
-        ctx.drawImage(this.spriteIdle, this.xPos, this.yPos, 125, 125);
+        if (this.currentSprite === this.spriteIdle) {
+            ctx.drawImage(this.spriteIdle, this.xPos, this.yPos, this.size, this.size);
+            this.currentSprite = this.spriteMoving;
+            return;
+        }
+
+        ctx.drawImage(this.spriteMoving, this.xPos, this.yPos, this.size, this.size);
+        this.currentSprite = this.spriteIdle;
     }
 }
 
@@ -144,8 +162,8 @@ function animate() {
     //ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    alien.update();
-    alien.draw();
+    //alien.update();
+    //alien.draw();
 
     requestAnimationFrame(animate);
 }
@@ -163,5 +181,5 @@ window.addEventListener("resize", () => {
         width: titleMeasurements.width,
         height: 20
     }
-    init();
+    //init();
 })
