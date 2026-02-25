@@ -9,54 +9,67 @@ class Alien {
     constructor(xPos, yPos) {
         this.xPos = xPos;
         this.initialXPos = xPos;
+        this.initialYPos = yPos;
         this.yPos = yPos;
-        this.weight = 2;
-        this.pixelWidthAndHeight = 20;
-        this.alienAscii = `
-xxxxxyxxxxxyxxxxx
-xxxxxxyxxxyxxxxxx
-xxxxxyyyyyyyxxxxx
-xxxxyyxyyyxyyxxxx
-xxxyyyyyyyyyyyxxx
-xxxyxyyyyyyyxyxxx
-xxxyxyyyyyyyxyxxx
-xxxyxyxxxxxyxyxxx
-xxxxxxyyxyyxxxxxx
-`;
+        this.weight = 1;
+        this.maxDistance = 200;
+        this.directionX = 1;
+
+        this.spriteIdle = new Image();
+        this.spriteIdle.src = "./alien-idle.png";
+
+        this.states = Object.freeze({
+            GOING_DOWN: 1,
+            GOING_RIGHT: 2,
+            GOING_DOWN2: 3,
+            GOING_RIGHT: 4
+        });
+        this.currentState = this.states.GOING_DOWN;
     }
 
+
     update() {
-        if (this.yPos > canvas.height) {
-            this.initialXPos = Math.random() * canvas.width;
-            this.yPos = 0;
+        switch (this.currentState) {
+            case this.states.GOING_DOWN:
+                this.yPos += this.weight;
+
+                if (this.yPos > this.initialYPos + this.maxDistance) {
+                    this.initialYPos = this.yPos;
+                    this.currentState = this.states.GOING_RIGHT;
+                }
+                break;
+
+            case this.states.GOING_RIGHT:
+                this.xPos += this.weight;
+
+                if (this.xPos > this.initialXPos + this.maxDistance) {
+                    this.initialXPos = this.xPos;
+                    this.currentState = this.states.GOING_DOWN2;
+                }
+                break;
+                
+            case this.states.GOING_DOWN2:
+                this.yPos += this.weight;
+
+                if (this.yPos > this.initialYPos + this.maxDistance) {
+                    this.initialYPos = this.yPos;
+                    this.currentState = this.states.GOING_LEFT;
+                }
+                break;
+
+            case this.states.GOING_LEFT:
+                this.xPos -= this.weight;
+
+                if (this.xPos < this.initialXPos - this.maxDistance) {
+                    this.initialXPos = this.xPos;
+                    this.currentState = this.states.GOING_DOWN;
+                }
+                break;
         }
     }
 
     draw() {
-        const space = " ";
-        const newLine = "\n";
-        for (const char of this.alienAscii) {
-            if (char === space) {
-                this.xPos += this.pixelWidthAndHeight;
-            }
-
-            if (char === newLine) {
-                this.xPos = this.initialXPos;
-                this.yPos += this.pixelWidthAndHeight;
-            }
-
-            if (char === "x") {
-                this.xPos += this.pixelWidthAndHeight;
-            }
-
-            if (char === "y") {
-                this.xPos += this.pixelWidthAndHeight;
-                ctx.fillStyle = "green";
-                ctx.beginPath();
-                ctx.fillRect(this.xPos, this.yPos, this.pixelWidthAndHeight, this.pixelWidthAndHeight);
-                ctx.closePath();
-            }
-        }
+        ctx.drawImage(this.spriteIdle, this.xPos, this.yPos, 125, 125);
     }
 }
 
@@ -115,30 +128,29 @@ class Particle {
 
 
 
-function init() {
-    particles = [];
-    for ( let i = 0; i < numberOfParticles; i++ ) {
-        const randomX = Math.random() * canvas.width;
-        const randomY = Math.random() * canvas.height;
-
-        particles.push(new Particle(randomX, randomY));
-    }
-}
+//function init() {
+//    particles = [];
+//    for ( let i = 0; i < numberOfParticles; i++ ) {
+//        const randomX = Math.random() * canvas.width;
+//        const randomY = Math.random() * canvas.height;
+//
+//        particles.push(new Particle(randomX, randomY));
+//    }
+//}
 
 const alien = new Alien(100, 100);
 function animate() {
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.01)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //ctx.fillStyle = 'rgba(255, 255, 255, 0.01)';
+    //ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (const particle of particles) {
-        particle.update();
-        particle.draw();
-    }
+    alien.update();
+    alien.draw();
 
     requestAnimationFrame(animate);
 }
 
-init();
+//init();
 animate();
 
 window.addEventListener("resize", () => {
