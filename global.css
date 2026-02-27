@@ -31,6 +31,7 @@ body {
 }
 
 nav {
+    background-color: var(--bg-color);
     color: var(--highlight-color);
     border-bottom: 5px solid var(--highlight-color);
 
