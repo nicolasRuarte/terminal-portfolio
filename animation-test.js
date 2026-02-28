@@ -111,7 +111,7 @@ class Alien {
 
 let aliens = [];
 function initAliens() {
-    const maxSize = 5;
+    const maxSize = 3;
 
     for (let i = 0; i < maxSize; i++) {
         const randomXPos = Math.random() * canvas.width + 50;
