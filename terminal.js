@@ -16,10 +16,10 @@ const responder = {
         const helpMessage = document.createElement("pre");
         helpMessage.classList.add("response");
         helpMessage.textContent = `Lista de comandos disponibles:
-            - help: imprime la lista de comandos disponibles
-            - ls: imprime una lista con los proyectos en los que he trabajado
-            - tech: imprime una lista con las tecnologías que manejo
-            - whoami: imprime una lista con mis redes sociales de contacto
+- help: imprime la lista de comandos disponibles
+- ls: imprime una lista con los proyectos en los que he trabajado
+- tech: imprime una lista con las tecnologías que manejo
+- whoami: imprime una lista con mis redes sociales de contacto
         `;
 
         const divContainer = document.createElement("div");
@@ -33,7 +33,9 @@ const responder = {
         const projectList = document.createElement("pre");
         projectList.classList.add("response");
         projectList.innerHTML = `Mis proyectos:
-        -  <a href="https://github.com/nicolasRuarte/project-manager">Gestor de proyectos</a>`
+        -  <a href="https://github.com/nicolasRuarte/project-manager">Gestor de proyectos</a>
+            Pequeño proyecto de hobby que permite realizar
+            operaciones CRUD a una lista de proyectos locales`;
 
         const divContainer = document.createElement("div");
         divContainer.appendChild(projectList);
@@ -45,11 +47,14 @@ const responder = {
     tech: () => {
         const technologies = document.createElement("pre");
         technologies.classList.add("response");
-        technologies.textContent = `Mis tecnologías:
-        -  TypeScript
-        - ExpressJS
-        - Go
-        - Linux`
+        technologies.innerHTML = `Mis tecnologías:
+        <div class="tech-response">
+            <img src="javascript-logo.svg">
+            <img src="typescript-logo.svg">
+            <img src="expressjs-logo.png">
+            <img src="go-logo.svg">
+        </div>
+        `
 
         const divContainer = document.createElement("div");
         divContainer.appendChild(technologies);
