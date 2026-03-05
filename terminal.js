@@ -96,12 +96,77 @@ const responder = {
 
 }
 
+class CommandHistory {
+    constructor() {
+        this.commandHistory = [];
+        this.index = 0;
+    }
+
+    saveCommand(command) {
+        console.log("Comando guardado: ", command);
+        this.index = 0;
+        this.commandHistory.push(command);
+    }
+
+    getCommandAtIndex(index) {
+        if (this.commandHistory.length === 0) {
+            this.index = 0;
+            throw new Error("There are no commands in history");
+        }
+
+        return this.commandHistory.at(index);
+    }
+
+    listenForIndexUpdate() {
+        window.addEventListener("keydown", (event) => {
+            console.log(this.commandHistory);
+            if (event.key === "ArrowUp") {
+                this.index++;
+
+                const lastIndexOfArray = this.commandHistory.length;
+                if (this.index > lastIndexOfArray) {
+                    this.index--;
+                    throw new Error("Exceeded command history length");
+                }
+
+                // Pasamos el index como negativo así vamos del último al primero cuando luego utilizemos Array.at()
+                // 1 pasa a -1, 2 a -2 y así recorriendo el array de atrás para adelante
+                const backwardsIndex = -this.index;
+                const command = this.getCommandAtIndex(backwardsIndex);
+                const editableArea = document.querySelector(".active");
+                editableArea.textContent = command;
+            }
+
+            if (event.key === "ArrowDown") {
+                const editableArea = document.querySelector(".active");
+
+                this.index--;
+                if (this.index <= 0) {
+                    this.index = 0;
+                    editableArea.textContent = "";
+                    return;
+                }
+
+                //Llega como 3 y necesito que sea 2
+                // 4 - 3 = 1; 4 - 2 
+                const command = this.getCommandAtIndex(this.commandHistory.length - this.index);
+                editableArea.textContent = command;
+            }
+
+            console.log(this.index);
+        })
+    }
+}
+
+
+
 function processEditableAreaInput(event) {
     if (event.key === "Enter") {
         event.preventDefault();
         const editableArea = event.target
         const input = editableArea.textContent;
-        console.log(input);
+
+        commandHistory.saveCommand(input);
 
         switch (input) {
             case "help":
@@ -165,9 +230,12 @@ function createCmdLine() {
     return cmdLine
 }
 
+const commandHistory = new CommandHistory();
 function main() {
     try {
         cmdLine = createCmdLine();
+        commandHistory.listenForIndexUpdate();
+        
     } catch (error) {
         console.error(error);   
     }
