@@ -1,0 +1,80 @@
+:root {
+    --delay-after-prev-animation: 3.5s;
+}
+
+#presentation {
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 5rem 0 5rem;
+}
+
+#presentation #name-title {
+    width: 72%;
+    margin: 0;
+    padding: 0;
+    font-size: 10rem;
+    position: relative;
+}
+
+@keyframes blinking {
+    0% {
+        border-left-color: var(--bg-color);
+    }
+
+    50% {
+        border-left-color: var(--highlight-color);
+    }
+}
+
+
+@keyframes typing {
+    100% {
+        left: 100%;
+    }
+}
+
+#name-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    border-left: 7rem solid var(--highlight-color);
+    background-color: var(--bg-color);
+    padding: 0;
+    margin: 0;
+    
+    animation: 
+        typing 3s steps(14) 1 forwards,
+        blinking 1.2s steps(1) var(--delay-after-prev-animation) infinite;
+    
+}
+
+#terminal-btn-container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+#terminal-btn {
+    text-decoration: none;
+    font-size: 2rem;
+
+    border: 2px solid var(--highlight-color);
+    border-radius: 10px;
+
+    padding: var(--text-padding);
+
+}
+
+#terminal-btn:hover {
+    transition: all linear 85ms;
+    background-color: var(--highlight-color);
+    color: var(--bg-color);
+}
+
+footer {
+    border-top: 2px solid var(--highlight-color);
+    padding: var(--text-padding); 
+    font-size: 1.5rem;
+}
