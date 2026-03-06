@@ -1,8 +1,6 @@
-const interactionContainer = document.querySelector("#interaction-container")
-
 const canvas = document.querySelector("#my-canvas");
-canvas.width = 600;
-canvas.height = 600;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 
 
@@ -111,7 +109,7 @@ class Alien {
 
 let aliens = [];
 function initAliens() {
-    const maxSize = 3;
+    const maxSize = 10;
 
     for (let i = 0; i < maxSize; i++) {
         const randomXPos = Math.random() * canvas.width + 50;
@@ -147,15 +145,11 @@ function animate() {
 initAliens();
 animate();
 
-interactionContainer.addEventListener("change", () => {
-    console.log("hola")
-    canvas.width = interactionContainer.width;
-    canvas.height = interactionContainer.height;
-    //init();
-})
-
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    console.log(window.innerWidth);
+    console.log(window.innerHeight);
+
 })
 
