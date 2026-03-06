@@ -18,7 +18,7 @@
 * {
     box-sizing: border-box;
     font-family: 'Pixelify Sans';
-    color: var(--highlight-color)
+    color: var(--highlight-color);
 }
 
 
@@ -28,6 +28,7 @@ body {
     padding: 0;
     margin: 0;
     background-color: var(--bg-color);
+    overflow-x: hidden;
 }
 
 nav {
@@ -40,8 +41,16 @@ nav {
     padding: var(--text-padding);
 
     font-size: 3rem;
+    z-index: 10;
 }
 
-.text-highlight {
-    color: hsl(0, 0%, 85%);
+footer {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    background-color: var(--bg-color);
+    color: hsl(120, 50%, 65%);
+    border-top: 2px solid var(--highlight-color);
+    padding: var(--text-padding); 
+    font-size: 1.5rem;
 }
